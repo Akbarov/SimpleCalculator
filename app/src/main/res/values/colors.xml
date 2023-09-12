@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pressed">#737171</color>
+    <color name="unpressed">#323232</color>
+    <color name="clear_button">#FB7730</color>
+    <color name="operation_button">#00BCD4</color>
+</resources>
