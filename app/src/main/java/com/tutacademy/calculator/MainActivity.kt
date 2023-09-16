@@ -11,6 +11,7 @@ import kotlin.math.floor
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val operationsList = listOf('+', '-', '*', '/')
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +71,15 @@ class MainActivity : AppCompatActivity() {
                 binding.inputEt.setText(newExpression)
             }
         }
+        binding.brackets.setOnClickListener {
+            val openBrackets = binding.inputEt.text.toString().count { it == '(' }
+            val closedBrackets = binding.inputEt.text.toString().count { it == ')' }
+            if (openBrackets > closedBrackets) {
+                binding.inputEt.setText(binding.inputEt.text.toString() + ")")
+            } else {
+                binding.inputEt.setText(binding.inputEt.text.toString() + "(")
+            }
+        }
     }
 
     private fun addNumber(number: String) {
@@ -77,7 +87,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addOperation(operation: String) {
-        binding.inputEt.setText(binding.inputEt.text.toString() + operation)
+        val current = binding.inputEt.text.toString()
+
+        if (current.isBlank() || current.last() == '(') {
+            Toast.makeText(this, "Invalid format", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (current.last() in operationsList) {
+            binding.inputEt.setText(current.take(current.length - 1) + operation)
+        } else {
+            binding.inputEt.setText(current + operation)
+        }
+
+
     }
 
     private fun calculateExpression() {
